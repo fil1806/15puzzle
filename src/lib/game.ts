@@ -1,7 +1,7 @@
 export type Tile = number | null;
 
 export const initializeBoard = (): Tile[] => {
-  const tiles = Array.from({ length: 15 }, (_, i) => i + 1).concat(null);
+  const tiles = [...Array.from({ length: 15 }, (_, i) => i + 1), null];
   return shuffle(tiles);
 };
 
@@ -23,11 +23,14 @@ export const canMoveTile = (board: Tile[], tileIndex: number): boolean => {
 export const moveTile = (board: Tile[], tileIndex: number): Tile[] => {
   const emptyIndex = board.indexOf(null);
   const newBoard = [...board];
-  [newBoard[emptyIndex], newBoard[tileIndex]] = [newBoard[tileIndex], newBoard[emptyIndex]];
+  [newBoard[emptyIndex], newBoard[tileIndex]] = [
+    newBoard[tileIndex],
+    newBoard[emptyIndex],
+  ];
   return newBoard;
 };
 
 export const isGameWon = (board: Tile[]): boolean => {
-  const winningBoard = Array.from({ length: 15 }, (_, i) => i + 1).concat(null);
+  const winningBoard = [...Array.from({ length: 15 }, (_, i) => i + 1), null];
   return board.every((tile, index) => tile === winningBoard[index]);
 };
